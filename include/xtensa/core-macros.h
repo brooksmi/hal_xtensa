@@ -435,13 +435,13 @@ static inline unsigned  XTHAL_COMPARE_AND_SET( int *addr, int testval, int setva
 #elif XCHAL_HAVE_INTERRUPTS
     int tmp;
     __asm__ __volatile__ (
-        "   rsil   %4, 15 \n"		// %4 == saved ps
-        "   l32i   %0, %3, 0 \n"	// %0 == value to test, return val
-        "   bne    %2, %0, 9f \n"	// test
-        "   s32i   %1, %3, 0 \n"	// write the new value
-	"9: wsr.ps %4 ; rsync \n"	// restore the PS
-	: "=a"(result) 
-	: "0" (setval), "a" (testval), "a" (addr), "a" (tmp)
+        "   rsil   %1, 15 \n"		// %1 == saved ps
+        "   l32i   %0, %4, 0 \n"	// %0 == value to test, return val
+        "   bne    %3, %0, 9f \n"	// test
+        "   s32i   %2, %4, 0 \n"	// write the new value
+	"9: wsr.ps %1 ; rsync \n"	// restore the PS
+	: "=a"(result), "=a" (tmp)
+	: "0" (setval), "a" (testval), "a" (addr)
 	: "memory");
 #else
     __asm__ __volatile__ (
