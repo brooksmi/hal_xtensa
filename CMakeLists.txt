@@ -29,6 +29,9 @@ if(CONFIG_XTENSA_HAL)
     src/hal/miscellaneous.S
     src/hal/mmu.c
     src/hal/mp_asm.S
+	src/hal/mpu_asm.S
+	src/hal/mpu_table.c
+	src/hal/mpu.c
     src/hal/set_region_translate.c
     src/hal/state_asm.S
     src/hal/state.c
